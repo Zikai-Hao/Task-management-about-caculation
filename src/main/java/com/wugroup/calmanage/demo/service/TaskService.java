@@ -14,9 +14,13 @@ public class TaskService {
     TaskDAO taskDAO;
 
     public List<Task> getLastTasks(int userId,int offset,int limit){
-        return taskDAO.selectUserLatestTasks(userId, offset, limit);
+        if(userId!=0){
+            return taskDAO.selectUserLatestTasks(userId, offset, limit);
+        }
+        else return taskDAO.selectLatestTasks(offset, limit);
+
     }
-    public List<Task> getLastTasks(int offset,int limit){
+    /*public List<Task> getLastTasks(int offset,int limit){
         return taskDAO.selectLatestTasks(offset, limit);
-    }
+    }*/
 }

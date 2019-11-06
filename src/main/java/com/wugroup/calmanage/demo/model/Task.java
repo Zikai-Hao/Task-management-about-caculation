@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * Created by HaoZK on 2019/11/5
  * 计算任务类
+ * 11/6 添加note
  */
 
 public class Task {
@@ -13,9 +14,18 @@ public class Task {
     private int userId;
     private int id;
     private String taskType;
+    private String note;
 
     public Task() {
 
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getTaskName() {

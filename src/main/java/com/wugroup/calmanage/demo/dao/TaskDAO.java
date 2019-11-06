@@ -10,11 +10,11 @@ import java.util.List;
 public interface TaskDAO {
     //mysql语法字符串
     String TABEL_NAME=" task ";
-    String INSERT_FIELDS = " task_name, task_type, created_date, user_id";
+    String INSERT_FIELDS = " task_name, task_type, created_date, user_id, note";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     //返回任务编号,上传任务记录
-    @Insert({"insert into ", TABEL_NAME," (", INSERT_FIELDS, ") values(#{taskName},#{taskType},#{createdDate},#{userId})"})
+    @Insert({"insert into ", TABEL_NAME," (", INSERT_FIELDS, ") values(#{taskName},#{taskType},#{createdDate},#{userId},#{note})"})
     int addTask(Task task);
 
     //查询操作，返回Task类,offset-limit 起始到终止数量

@@ -25,18 +25,7 @@ public class DatabaseTest {
     TaskDAO taskDAO;
 
 
-    @Test
-    public void test(){
-        for(int i=3;i<11;i++) {
-            Task task = new Task();
-            Date date = new Date();
-            task.setCreatedDate(date);
-            task.setUserId(1);
-            task.setTaskName("Pd_opt_"+i+"necharge");
-            task.setTaskType("opt");
-            taskDAO.addTask(task);
-        }
-    }
+
 
 
 }

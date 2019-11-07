@@ -1,11 +1,9 @@
 package com.wugroup.calmanage.demo.controller;
 
-import com.wugroup.calmanage.demo.dao.UserDAO;
 import com.wugroup.calmanage.demo.model.Task;
 import com.wugroup.calmanage.demo.model.ViewObject;
 import com.wugroup.calmanage.demo.service.TaskService;
 import com.wugroup.calmanage.demo.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +21,8 @@ import java.util.List;
  *
  */
 @Controller
-public class homeController {
-    private static final Logger logger = LoggerFactory.getLogger(homeController.class);
+public class HomeController {
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
     TaskService taskService;
@@ -33,8 +30,8 @@ public class homeController {
     @Autowired
     UserService userService;
 
-    private List<ViewObject> getTasks(int UserId,int offset,int limit){
-        List<Task> taskList = taskService.getLastTasks(0,0,10);
+    private List<ViewObject> getTasks(int userId,int offset,int limit){
+        List<Task> taskList = taskService.getLastTasks(userId,offset,limit);
 
         List<ViewObject> vos = new ArrayList<>();
         for(Task task:taskList){
@@ -58,6 +55,7 @@ public class homeController {
     public String user(Model model, @PathVariable("userId") int userId){
 
         model.addAttribute("vos",getTasks(userId,0,10));
+        logger.info(userId+"");
         return "index";
     }
 }

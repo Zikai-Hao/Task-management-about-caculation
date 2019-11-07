@@ -50,6 +50,8 @@ public class UserService {
         user.setPassword(DemoUtil.MD5(password+user.getSalt()));
         userDAO.addUser(user);
 
+        String ticket = addLoginTicket(user.getId());
+        map.put("ticket", ticket);
         return map;
 
     }
@@ -91,7 +93,7 @@ public class UserService {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);
         Date now = new Date();
-        now.setTime(3600*24*30+now.getTime());
+        now.setTime(3600*24*1000+now.getTime());
         loginTicket.setExpired(now);
         loginTicket.setStatus(0);
         loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
@@ -101,5 +103,8 @@ public class UserService {
 
     public User getUser(int id){
         return userDAO.selectById(id);
+    }
+    public void logout(String ticket){
+        loginTicketDAO.updateStatus(ticket,1);
     }
 }

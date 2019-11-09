@@ -4,6 +4,7 @@ import com.wugroup.calmanage.demo.dao.TaskDAO;
 import com.wugroup.calmanage.demo.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class TaskService {
 
     @Autowired
     TaskDAO taskDAO;
+
+    @Autowired
+    SensitiveService sensitiveService;
 
     public List<Task> getLastTasks(int userId,int offset,int limit){
         if(userId!=0){
@@ -23,4 +27,18 @@ public class TaskService {
     /*public List<Task> getLastTasks(int offset,int limit){
         return taskDAO.selectLatestTasks(offset, limit);
     }*/
+
+    public int addTask(Task task){
+        task.setTaskType(HtmlUtils.htmlEscape(task.getTaskType()));
+        task.setTaskName(HtmlUtils.htmlEscape(task.getTaskName()));
+        //敏感词过滤
+        task.setTaskType(sensitiveService.filter(task.getTaskType()));
+        task.setTaskName(sensitiveService.filter(task.getTaskName()));
+        return taskDAO.addTask(task) >0? task.getId():0;
+    }
+
+    public Task getById(int id){
+        return taskDAO.selectById(id);
+    }
+
 }

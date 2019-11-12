@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class TaskService {
 
+
     @Autowired
     TaskDAO taskDAO;
 
@@ -35,6 +36,10 @@ public class TaskService {
         task.setTaskType(sensitiveService.filter(task.getTaskType()));
         task.setTaskName(sensitiveService.filter(task.getTaskName()));
         return taskDAO.addTask(task) >0? task.getId():0;
+    }
+
+    public void addcommentCount(int taskId,int commentCount){
+        taskDAO.updateCommentCounts(taskId,commentCount);
     }
 
     public Task getById(int id){

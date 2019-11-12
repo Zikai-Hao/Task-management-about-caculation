@@ -10,11 +10,11 @@ import java.util.List;
 public interface TaskDAO {
     //mysql语法字符串
     String TABEL_NAME=" task ";
-    String INSERT_FIELDS = " task_name, task_type, created_date, user_id, note";
+    String INSERT_FIELDS = " task_name, task_type, created_date, user_id, comment_count";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     //返回任务编号,上传任务记录
-    @Insert({"insert into ", TABEL_NAME," (", INSERT_FIELDS, ") values(#{taskName},#{taskType},#{createdDate},#{userId},#{note})"})
+    @Insert({"insert into ", TABEL_NAME," (", INSERT_FIELDS, ") values(#{taskName},#{taskType},#{createdDate},#{userId},#{commentCount})"})
     int addTask(Task task);
 
     //查询操作，返回Task类,offset-limit 起始到终止数量
@@ -29,6 +29,10 @@ public interface TaskDAO {
     //查询操作，返回User类
     @Select({"select ", SELECT_FIELDS, " from ", TABEL_NAME, " where id=#{id}"})
     Task selectById(int id);
+
+    //增加评论
+    @Update({"Update ",TABEL_NAME," set comment_count=#{commentCount} where id = #{id}"})
+    void updateCommentCounts(@Param("id") int id,@Param("commentCount")int commentCount);
 
     //删除任务记录
     @Delete({"delete from ", TABEL_NAME, " where id=#{id}"})

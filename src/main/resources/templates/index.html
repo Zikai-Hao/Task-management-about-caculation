@@ -54,8 +54,8 @@
                                                 <div class="zm-meta-panel">
                                                     <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">
                                                         <i class="z-icon-follow"></i>${vo.task.createdDate?string('yyyy年MM月dd日 HH：mm：ss')}</a>
-                                                    <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-                                                        <i class="z-icon-comment"></i>评论（待添加）</a>
+                                                    <a href="/task/${vo.task.id}" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                                                        <i class="z-icon-comment"></i>评论${vo.task.commentCount}</a>
 
 
                                                 <button class="meta-item item-collapse js-collapse">

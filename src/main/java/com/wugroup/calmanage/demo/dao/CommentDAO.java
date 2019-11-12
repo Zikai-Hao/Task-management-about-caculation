@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.wugroup.calmanage.demo.dao.LoginTicketDAO.TABLE_NAME;
 
 /**
  * Created by Haozk on 2019/11/9
@@ -32,8 +31,9 @@ public interface CommentDAO {
     List<Comment> selectCommentsByEntityId(@Param("entityId") int userId,@Param("entityType") int entityType);
 
     //查询操作，返回评论数
-    @Select({"select count(id) from ", TABLE_NAME, " where entity_id=#{entityId} and entity_type=#{entityType} "})
+    @Select({"select count(id) from ", TABEL_NAME, " where entity_id=#{entityId} and entity_type=#{entityType} "})
     int getCommentCount(@Param("entityId") int entityId, @Param("entityType") int entityType);
+
 
     //删除评论(隐藏)
     @Update({"Update comment set status=#{status} where id = #{id}"})

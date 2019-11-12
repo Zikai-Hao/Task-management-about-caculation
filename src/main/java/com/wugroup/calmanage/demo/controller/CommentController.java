@@ -5,6 +5,7 @@ import com.wugroup.calmanage.demo.model.Comment;
 import com.wugroup.calmanage.demo.model.EntityType;
 import com.wugroup.calmanage.demo.model.HostHolder;
 import com.wugroup.calmanage.demo.service.CommentService;
+import com.wugroup.calmanage.demo.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class CommentController {
     HostHolder hostHolder;
 
     @Autowired
+    TaskService taskService;
+
+    @Autowired
     CommentService commentService;
+
+    //添加评论
     @RequestMapping(path={"/addComment"},method ={RequestMethod.POST})
         public String addComment(@RequestParam("taskId") int taskId,
                                  @RequestParam("content") String content){
@@ -41,8 +47,14 @@ public class CommentController {
             }
             comment.setCreatedDate(new Date());
             comment.setEntityId(taskId);
-            comment.setEntityType(EntityType.ENTITY_COMMENT);
+            comment.setEntityType(EntityType.ENTITY_TASK);
             commentService.addComment(comment);
+            comment.setStatus(0);
+            // 更新题目里的评论数量
+            int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
+            taskService.addcommentCount(comment.getEntityId(), count);
+            //logger.info("评论数量增加"+count);
+
         }catch (Exception e){
             logger.error("添加评论失败"+e.getMessage());
 

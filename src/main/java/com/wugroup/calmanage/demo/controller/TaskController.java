@@ -1,9 +1,8 @@
 package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
-import com.wugroup.calmanage.demo.model.HostHolder;
-import com.wugroup.calmanage.demo.model.Task;
-import com.wugroup.calmanage.demo.model.ViewObject;
+import com.wugroup.calmanage.demo.model.*;
+import com.wugroup.calmanage.demo.service.CommentService;
 import com.wugroup.calmanage.demo.service.TaskService;
 import com.wugroup.calmanage.demo.service.UserService;
 import org.slf4j.Logger;
@@ -35,6 +34,9 @@ public class TaskController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    CommentService commentService;
+
     @RequestMapping(path ="/task/add",method ={RequestMethod.POST})
     @ResponseBody
     public String addQuestion(@RequestParam("title")String name,
@@ -63,11 +65,11 @@ public class TaskController {
     @RequestMapping(value = "/task/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
         Task task = taskService.getById(qid);
-        ViewObject vo = new ViewObject();
+        /* ViewObject vo = new ViewObject();
         vo.set("task",task);
-        vo.set("user",userService.getUser(task.getUserId()));
-        model.addAttribute("vo", vo);
-        /*List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        vo.set("user",userService.getUser(task.getUserId()));*/
+        model.addAttribute("task", task);
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_TASK);
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment : commentList) {
             ViewObject vo = new ViewObject();
@@ -75,7 +77,7 @@ public class TaskController {
             vo.set("user", userService.getUser(comment.getUserId()));
             vos.add(vo);
         }
-        model.addAttribute("comments", vos);*/
+        model.addAttribute("comments", vos);
 
         return "detail";
     }

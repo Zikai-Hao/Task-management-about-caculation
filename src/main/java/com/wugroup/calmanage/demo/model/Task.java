@@ -14,18 +14,18 @@ public class Task {
     private int userId;
     private int id;
     private String taskType;
-    private String note;
+    private int commentCount;
 
     public Task() {
 
     }
 
-    public String getNote() {
-        return note;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public String getTaskName() {

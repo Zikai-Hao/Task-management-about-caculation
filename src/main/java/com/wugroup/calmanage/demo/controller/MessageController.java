@@ -1,10 +1,7 @@
 package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
-import com.wugroup.calmanage.demo.model.HostHolder;
-import com.wugroup.calmanage.demo.model.Message;
-import com.wugroup.calmanage.demo.model.User;
-import com.wugroup.calmanage.demo.model.ViewObject;
+import com.wugroup.calmanage.demo.model.*;
 import com.wugroup.calmanage.demo.service.MessageService;
 import com.wugroup.calmanage.demo.service.UserService;
 import org.apache.ibatis.annotations.Param;
@@ -101,6 +98,7 @@ public class MessageController {
                 messages.add(vo);
             }
             model.addAttribute("messages", messages);
+            messageService.readMessage(ReadType.READ,hostHolder.getUser().getId());
         } catch (Exception e) {
             logger.error("获取详情消息失败" + e.getMessage());
         }

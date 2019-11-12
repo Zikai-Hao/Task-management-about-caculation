@@ -5,7 +5,7 @@
             <ul class="letter-list">
                 <#list conversations as conversation>
                 <li id="conversation-item-10001_622873">
-                <a class="letter-link" href="/msg/detail?conversationId=$conversation.conversation.conversationId">
+                <a class="letter-link" href="/msg/detail?conversationId=${conversation.conversation.conversationId}">
                 </a>
                 <div class="letter-info">
                 <span class="l-time">
@@ -17,7 +17,7 @@
                 </a>
                 -->
                 <a href="/msg/detail?conversationId=${conversation.conversation.conversationId}">
-                ${conversation.conversation.id}
+                ${conversation.conversation.id}条私信
                 </a>
                 </div>
                 </div>

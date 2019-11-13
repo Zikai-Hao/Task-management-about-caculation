@@ -3,6 +3,7 @@ package com.wugroup.calmanage.demo.controller;
 import com.wugroup.calmanage.demo.Util.DemoUtil;
 import com.wugroup.calmanage.demo.model.*;
 import com.wugroup.calmanage.demo.service.CommentService;
+import com.wugroup.calmanage.demo.service.LikeService;
 import com.wugroup.calmanage.demo.service.TaskService;
 import com.wugroup.calmanage.demo.service.UserService;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class TaskController {
 
     @Autowired
     HostHolder hostHolder;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     CommentService commentService;
@@ -74,6 +78,12 @@ public class TaskController {
         for (Comment comment : commentList) {
             ViewObject vo = new ViewObject();
             vo.set("comment", comment);
+            if (hostHolder.getUser() == null) {
+                vo.set("liked", 0);
+            } else {
+                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
             vo.set("user", userService.getUser(comment.getUserId()));
             vos.add(vo);
         }

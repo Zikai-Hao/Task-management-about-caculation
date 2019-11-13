@@ -30,6 +30,9 @@ public interface CommentDAO {
     @Select({"select" + SELECT_FIELDS +" from" + TABEL_NAME + " where entity_id=#{entityId} and entity_type=#{entityType}  order by id desc "})
     List<Comment> selectCommentsByEntityId(@Param("entityId") int userId,@Param("entityType") int entityType);
 
+    @Select({"select ", SELECT_FIELDS, " from ", TABEL_NAME, " where id=#{id}"})
+    Comment getCommentById(int id);
+
     //查询操作，返回评论数
     @Select({"select count(id) from ", TABEL_NAME, " where entity_id=#{entityId} and entity_type=#{entityType} "})
     int getCommentCount(@Param("entityId") int entityId, @Param("entityType") int entityType);

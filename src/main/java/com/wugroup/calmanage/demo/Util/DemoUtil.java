@@ -12,6 +12,7 @@ public class DemoUtil {
 
 
     public static int ANONYMOUS_USERID = 3;
+    public static int SYSTEM_USERID = 2;
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();

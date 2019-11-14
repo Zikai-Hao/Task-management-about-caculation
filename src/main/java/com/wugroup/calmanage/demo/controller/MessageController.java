@@ -52,7 +52,7 @@ public class MessageController {
                 vo.set("unread",messageService.getConvesationUnreadCount(localUserId,msg.getConversationId()));
                 vos.add(vo);
 
-                logger.info("获取信息1");
+                //logger.info("获取信息1");
             }
             model.addAttribute("conversations",vos);
 

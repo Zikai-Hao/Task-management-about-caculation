@@ -22,9 +22,10 @@
                 </div>
                 </div>
                 <div class="chat-headbox">
+                <#if (conversation.unread!=0)>
                 <span class="msg-num">
                 ${conversation.unread}
-                </span>
+                </span></#if>
                 <a class="list-head">
                 <img alt="头像" src="../images/res/da8e974dc_m.jpg">
                 </a>

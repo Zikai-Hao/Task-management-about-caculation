@@ -5,8 +5,10 @@ import com.wugroup.calmanage.demo.async.EventHandler;
 import com.wugroup.calmanage.demo.async.EventModel;
 import com.wugroup.calmanage.demo.async.EventType;
 import com.wugroup.calmanage.demo.model.Message;
+import com.wugroup.calmanage.demo.model.Task;
 import com.wugroup.calmanage.demo.model.User;
 import com.wugroup.calmanage.demo.service.MessageService;
+import com.wugroup.calmanage.demo.service.TaskService;
 import com.wugroup.calmanage.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,9 @@ public class LikeHandler implements EventHandler {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TaskService taskService;
+
     @Override
     public void doHandle(EventModel model) {
         Message message = new Message();
@@ -39,8 +44,9 @@ public class LikeHandler implements EventHandler {
         message.setToId(model.getEntityOwnerId());
         message.setCreatedDate(new Date());
         User user = userService.getUser(model.getActorId());
+        Task task = taskService.getById(Integer.valueOf(model.getExt("taskId")));
         message.setContent("用户" + user.getName()
-                + "赞了你的评论"+model.getExt("taskId"));
+                + "赞了你关于问题-"+task.getTaskName()+"-的评论");
 
 
         messageService.addMessage(message);

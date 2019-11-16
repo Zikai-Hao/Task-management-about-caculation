@@ -8,7 +8,9 @@ public enum EventType {
     COMMENT(1),
     LOGIN(2),
     MAIL(3),
-    TASKOVER(4);
+    FOLLOW(4),
+    UNFOLLOW(5),
+    REGIS(6);
 
     EventType(int value){
         this.value=value;

@@ -13,6 +13,7 @@ public class User {
     private String name;
     private String password;
     private String salt;
+    private String headUrl;
 
     public User() {
     }
@@ -47,5 +48,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 }

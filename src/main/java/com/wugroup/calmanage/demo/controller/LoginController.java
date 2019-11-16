@@ -1,6 +1,9 @@
 package com.wugroup.calmanage.demo.controller;
 
 import com.sun.deploy.net.HttpResponse;
+import com.wugroup.calmanage.demo.async.EventModel;
+import com.wugroup.calmanage.demo.async.EventProducer;
+import com.wugroup.calmanage.demo.async.EventType;
 import com.wugroup.calmanage.demo.model.User;
 import com.wugroup.calmanage.demo.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +31,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path={"/reg/"},method = {RequestMethod.POST})
     public String reg(Model model,
                       @RequestParam("username") String username,
@@ -42,9 +48,13 @@ public class LoginController {
                 Cookie cookie = new Cookie("ticket",map.get("ticket"));
                 cookie.setPath("/");
                 response.addCookie(cookie);
+                eventProducer.fireEvent(new EventModel(EventType.REGIS)
+                        .setExt("username", username).setExt("email", "1125037115@qq.com")
+                        .setActorId(2));
                 if(StringUtils.isNotBlank(next)){
                     return "redirect:"+next;
                 }
+
                 return "redirect:/";
             }else {
                 model.addAttribute("msg", map.get("msg"));

@@ -136,4 +136,16 @@ public class FollowService {
         }
         return ids;
     }
+
+    /**
+     *  判断用户是否关注了某个实体
+     * @param userId
+     * @param entityType
+     * @param entityId
+     * @return
+     */
+    public boolean isFollower(int userId, int entityType, int entityId) {
+        String followerKey = JedisKeyUtil.getFolloerKey(entityType, entityId);
+        return jedisAdapter.zscore(followerKey, String.valueOf(userId)) != null;
+    }
 }

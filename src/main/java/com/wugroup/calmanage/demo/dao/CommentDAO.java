@@ -42,4 +42,7 @@ public interface CommentDAO {
     @Update({"Update comment set status=#{status} where id = #{id}"})
     int updateStatus(@Param("id") int id,@Param("status")int status);
 
+    //查询用户评论
+    @Select({"select count(id) from ", TABEL_NAME, " where user_id=#{userId}"})
+    int getUserCommentCount(int userId);
 }

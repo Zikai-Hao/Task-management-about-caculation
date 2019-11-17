@@ -183,6 +183,12 @@ public class FollowController {
         return "followees";
     }
 
+    /**
+     * 内部方法，获取使用者的关注与粉丝以及评论信息
+     * @param localUserId
+     * @param userIds
+     * @return
+     */
     private List<ViewObject> getUsersInfo(int localUserId, List<Integer> userIds) {
         List<ViewObject> userInfos = new ArrayList<ViewObject>();
         for (Integer uid : userIds) {

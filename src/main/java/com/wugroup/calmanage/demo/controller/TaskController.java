@@ -2,10 +2,7 @@ package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
 import com.wugroup.calmanage.demo.model.*;
-import com.wugroup.calmanage.demo.service.CommentService;
-import com.wugroup.calmanage.demo.service.LikeService;
-import com.wugroup.calmanage.demo.service.TaskService;
-import com.wugroup.calmanage.demo.service.UserService;
+import com.wugroup.calmanage.demo.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,9 @@ public class TaskController {
 
     @Autowired
     LikeService likeService;
+
+    @Autowired
+    FollowService followService;
 
     @Autowired
     CommentService commentService;
@@ -88,6 +88,27 @@ public class TaskController {
             vos.add(vo);
         }
         model.addAttribute("comments", vos);
+
+        List<ViewObject> followUsers = new ArrayList<ViewObject>();
+        // 获取关注的用户信息
+        List<Integer> users = followService.getFollowers(EntityType.ENTITY_TASK, qid, 20);
+        for (Integer userId : users) {
+            ViewObject vo = new ViewObject();
+            User u = userService.getUser(userId);
+            if (u == null) {
+                continue;
+            }
+            vo.set("name", u.getName());
+            vo.set("headUrl", u.getHeadUrl());
+            vo.set("id", u.getId());
+            followUsers.add(vo);
+        }
+        model.addAttribute("followUsers", followUsers);
+        if (hostHolder.getUser() != null) {
+            model.addAttribute("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_TASK, qid));
+        } else {
+            model.addAttribute("followed", false);
+        }
 
         return "detail";
     }

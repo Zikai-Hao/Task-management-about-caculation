@@ -34,6 +34,15 @@ public class LoginController {
     @Autowired
     EventProducer eventProducer;
 
+    /**
+     * 注册
+     * @param model
+     * @param username
+     * @param password
+     * @param next
+     * @param response
+     * @return
+     */
     @RequestMapping(path={"/reg/"},method = {RequestMethod.POST})
     public String reg(Model model,
                       @RequestParam("username") String username,
@@ -88,6 +97,9 @@ public class LoginController {
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket",map.get("ticket"));
                 cookie.setPath("/");
+                if (rememberme) {
+                    cookie.setMaxAge(3600*24*5);
+                }
                 response.addCookie(cookie);
                 logger.info("登陆成功");
                 if(StringUtils.isNotBlank(next)){
@@ -106,6 +118,12 @@ public class LoginController {
         }
 
     }
+
+    /**
+     * 登出
+     * @param ticket
+     * @return
+     */
     @RequestMapping(path={"/logout"},method = {RequestMethod.GET})
     public String logout(@CookieValue("ticket") String ticket){
         userService.logout(ticket);

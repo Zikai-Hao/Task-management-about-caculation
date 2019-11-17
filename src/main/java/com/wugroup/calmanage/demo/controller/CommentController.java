@@ -1,6 +1,9 @@
 package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
+import com.wugroup.calmanage.demo.async.EventModel;
+import com.wugroup.calmanage.demo.async.EventProducer;
+import com.wugroup.calmanage.demo.async.EventType;
 import com.wugroup.calmanage.demo.model.Comment;
 import com.wugroup.calmanage.demo.model.EntityType;
 import com.wugroup.calmanage.demo.model.HostHolder;
@@ -33,6 +36,9 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     //添加评论
     @RequestMapping(path={"/addComment"},method ={RequestMethod.POST})
         public String addComment(@RequestParam("taskId") int taskId,
@@ -54,6 +60,8 @@ public class CommentController {
             int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
             taskService.addcommentCount(comment.getEntityId(), count);
             //logger.info("评论数量增加"+count);
+            /*eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
+                    .setEntityId(taskId));*/
 
         }catch (Exception e){
             logger.error("添加评论失败"+e.getMessage());

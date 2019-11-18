@@ -60,8 +60,8 @@ public class CommentController {
             int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
             taskService.addcommentCount(comment.getEntityId(), count);
             //logger.info("评论数量增加"+count);
-            /*eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
-                    .setEntityId(taskId));*/
+            eventProducer.fireEvent(new EventModel(EventType.COMMENT).setActorId(comment.getUserId())
+                    .setEntityId(taskId));
 
         }catch (Exception e){
             logger.error("添加评论失败"+e.getMessage());

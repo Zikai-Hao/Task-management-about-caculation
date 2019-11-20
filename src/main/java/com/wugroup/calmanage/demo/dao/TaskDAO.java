@@ -30,6 +30,13 @@ public interface TaskDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABEL_NAME, " where id=#{id}"})
     Task selectById(int id);
 
+    //查task数量
+    @Select({"select count(id) from ", TABEL_NAME, " where user_id=#{userId}"})
+    int getTaskCount(@Param("userId") int userId);
+
+    @Select({"select count(*) from ", TABEL_NAME })
+    int getAllTaskCount();
+
     //增加评论
     @Update({"Update ",TABEL_NAME," set comment_count=#{commentCount} where id = #{id}"})
     void updateCommentCounts(@Param("id") int id,@Param("commentCount")int commentCount);

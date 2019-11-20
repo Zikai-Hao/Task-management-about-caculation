@@ -1549,7 +1549,13 @@ html.no-touchevents .meta-item:hover .z-icon-comment {
     border-radius:3px;
     white-space:nowrap;
     box-sizing:border-box
-}
+}.zg-btn-none {
+
+     border:none;
+    color:none;
+
+ }
+
 .zg-btn-blue.disabled,.zg-btn-green.disabled,.zg-btn-red.disabled,.zg-btn-white.disabled,.zg-btn-disabled.disabled,.zg-btn-blue[disabled],.zg-btn-green[disabled],.zg-btn-red[disabled],.zg-btn-white[disabled],.zg-btn-disabled[disabled] {
     background:#eee;
     color:#888!important;
@@ -8175,8 +8181,17 @@ html.no-touchevents .zu-top-nav-userinfo:hover {
 .zg-icon-dd-settings {
     background-position:-6px -60px
 }
+.zg-icon-dd-feeds {
+    background-position:-26px -87px
+}
 .zg-icon-dd-logout {
     background-position:-6px -87px
+}
+.placeholder-text {
+    padding: 8rem 4rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #dadada;
 }
 .zu-top-nav {
     float:left;

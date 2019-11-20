@@ -1,5 +1,7 @@
 package com.wugroup.calmanage.demo.controller;
 
+import com.wugroup.calmanage.demo.Util.JedisAdapter;
+import com.wugroup.calmanage.demo.Util.JedisKeyUtil;
 import com.wugroup.calmanage.demo.model.*;
 import com.wugroup.calmanage.demo.service.CommentService;
 import com.wugroup.calmanage.demo.service.FollowService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,11 @@ public class HomeController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    JedisAdapter jedisAdapter;
+
+
+
     /**
      * 获取问题列表
      * @param userId
@@ -49,10 +57,16 @@ public class HomeController {
      */
     private List<ViewObject> getTasks(int userId,int offset,int limit){
         List<Task> taskList = taskService.getLastTasks(userId,offset,limit);
-
+        User localUser = hostHolder.getUser();
         List<ViewObject> vos = new ArrayList<>();
         for(Task task:taskList){
             ViewObject vo = new ViewObject();
+            if(localUser !=null){
+                vo.set("log",true);
+            vo.set("isFollow",followService.isFollower(localUser.getId(),EntityType.ENTITY_TASK,task.getId()));}
+            else{
+                vo.set("log",false);
+            }
             vo.set("task",task);
             vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_TASK, task.getId()));
 
@@ -69,9 +83,16 @@ public class HomeController {
      * @return
      */
     @RequestMapping(path={"/","/index"})
-    public String index(Model model){
+    public String index(Model model,
+                        @RequestParam(value = "page", defaultValue = "0") int page){
+        ViewObject vo = new ViewObject();
+        int taskCount = taskService.getTaskCount();
+        vo.set("lastPage",taskCount<=(10+10*page)?true:false);
+        vo.set("nextPage",page+1);
+        model.addAttribute("vo",vo);
 
-        model.addAttribute("vos",getTasks(0,0,10));
+
+        model.addAttribute("vos",getTasks(0,0+10*page,10+10*page));
         return "index";
     }
 
@@ -83,11 +104,13 @@ public class HomeController {
      * @return
      */
     @RequestMapping(path={"/user/{userId}"})
-    public String user(Model model, @PathVariable("userId") int userId){
+    public String user(Model model, @PathVariable("userId") int userId,
+                       @RequestParam(value = "page", defaultValue = "0") int page){
 
-        model.addAttribute("vos",getTasks(userId,0,10));
+        model.addAttribute("vos",getTasks(userId,0+10*page,10+10*page));
         User user = userService.getUser(userId);
         ViewObject vo = new ViewObject();
+        vo.set("nextPage",page+1);
         vo.set("user", user);
         vo.set("commentCount", commentService.getUserCommentCount(userId));
         vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
@@ -99,6 +122,9 @@ public class HomeController {
         } else {
             vo.set("followed", false);
         }
+
+        int taskCount = taskService.getTaskCount(user.getId());
+        vo.set("lastPage",taskCount<=(10+10*page)?true:false);
         model.addAttribute("profileUser", vo);
         return "profile";
     }

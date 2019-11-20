@@ -38,7 +38,7 @@
                                             <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">0</a></div>
                                         <div class="zm-item-answer-author-info">
                                             <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/${vo.user.id}">${vo.user.name}</a>
-                                            WuGroup</div>
+                                            ${vo.task.createdDate?string('yyyy年MM月dd日 HH：mm：ss')}</div>
                                         <div class="zm-item-vote-info" data-votecount="0" data-za-module="VoteInfo">
                                                 <span class="voters text">
                                                     <a href="#" class="more text">
@@ -52,8 +52,18 @@
                                         <div class="feed-meta">
                                             <div class="zm-item-meta answer-actions clearfix js-contentActions">
                                                 <div class="zm-meta-panel">
-                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;" id="sfb-123114">
-                                                        <i class="z-icon-follow"></i>${vo.task.createdDate?string('yyyy年MM月dd日 HH：mm：ss')}</a>
+                                                    <#if vo.log>
+                                                    <#if vo.isFollow>
+
+                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="index1">
+                                                        <i class="z-icon-follow"></i>取消关注</a>
+                                                    <#else>
+                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="index2">
+                                                        <i class="z-icon-follow"></i>关注问题</a>
+                                                     </#if>
+                                                <#else>
+                                                <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/reglogin" id="sfb-123114">
+                                                    <i class="z-icon-follow"></i>关注问题</a></#if>
                                                     <a href="/task/${vo.task.id}" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
                                                         <i class="z-icon-comment"></i>评论${vo.task.commentCount}</a>
 
@@ -70,7 +80,8 @@
                     </div>
                     </#list>
                 </div>
-                <a href="javascript:;" id="zh-load-more" data-method="next" class="zg-btn-white zg-r3px zu-button-more" style="">更多</a></div>
+    <#if (!vo.lastPage)>
+    <a href="/index?page=${vo.nextPage}" id="zh-load-more" class="zg-btn-white zg-r3px zu-button-more">更多</a></#if>
         </div>
     </div>
 </div>

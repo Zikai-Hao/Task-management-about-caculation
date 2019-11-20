@@ -38,6 +38,12 @@ public class TaskService {
         return taskDAO.addTask(task) >0? task.getId():0;
     }
 
+    public int getTaskCount(int userId){
+        return taskDAO.getTaskCount(userId);
+    }
+    public int getTaskCount(){
+        return taskDAO.getAllTaskCount();
+    }
     public void addcommentCount(int taskId,int commentCount){
         taskDAO.updateCommentCounts(taskId,commentCount);
     }

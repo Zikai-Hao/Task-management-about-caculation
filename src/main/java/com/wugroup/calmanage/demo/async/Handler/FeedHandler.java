@@ -16,6 +16,8 @@ import com.wugroup.calmanage.demo.service.FeedService;
 import com.wugroup.calmanage.demo.service.FollowService;
 import com.wugroup.calmanage.demo.service.TaskService;
 import com.wugroup.calmanage.demo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,7 @@ import java.util.List;
  */
 @Component
 public class FeedHandler implements EventHandler {
+    private final static Logger logger = LoggerFactory.getLogger(FeedHandler.class);
 
     @Autowired
     FeedService feedService;
@@ -71,6 +74,7 @@ public class FeedHandler implements EventHandler {
      */
     @Override
     public void doHandle(EventModel model) {
+        logger.info("Feed开始添加");
         Feed feed = new Feed();
         feed.setCreatedDate(new Date());
         feed.setType(model.getType().getValue());

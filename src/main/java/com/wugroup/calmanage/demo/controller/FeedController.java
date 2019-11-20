@@ -7,6 +7,8 @@ import com.wugroup.calmanage.demo.model.Feed;
 import com.wugroup.calmanage.demo.model.HostHolder;
 import com.wugroup.calmanage.demo.service.FeedService;
 import com.wugroup.calmanage.demo.service.FollowService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Controller
 public class FeedController {
+    private final static Logger logger = LoggerFactory.getLogger(FeedController.class);
     @Autowired
     FeedService feedService;
 
@@ -55,7 +58,10 @@ public class FeedController {
             // 关注的人
             followees = followService.getFollowees(localUserId, EntityType.ENTITY_USER, Integer.MAX_VALUE);
         }
+        logger.info("关注人数"+followees.size());
+
         List<Feed> feeds = feedService.getUserFeeds(Integer.MAX_VALUE, followees, 10);
+        logger.info("新鲜事"+feeds.size());
         model.addAttribute("feeds", feeds);
         return "feeds";
     }

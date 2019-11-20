@@ -93,9 +93,19 @@
                                         <div class="feed-meta">
                                             <div class="zm-item-meta answer-actions clearfix js-contentActions">
                                                 <div class="zm-meta-panel">
-                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="sfb-123114">
+                                                    <#if vo.log>
+                                                    <#if vo.isFollow>
+
+                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="index1">
+                                                        <i class="z-icon-follow"></i>取消关注</a>
+                                                    <#else>
+                                                    <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="index2">
                                                         <i class="z-icon-follow"></i>关注问题</a>
-                                                    <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                                                </#if>
+                                                <#else>
+                                                <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/reglogin" id="sfb-123114">
+                                                    <i class="z-icon-follow"></i>关注问题</a></#if>
+                                                    <a href="/task/${vo.task.id}" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
                                                         <i class="z-icon-comment"></i>${vo.task.commentCount} 条评论</a>
 
 
@@ -111,7 +121,8 @@
                         </div>
                     </#list>
                     </div>
-                    <a href="javascript:;" id="zh-load-more" class="zg-btn-white zg-r3px zu-button-more">更多</a>
+                    <#if (!profileUser.lastPage)>
+                    <a href="/user/${profileUser.user.id}?page=${profileUser.nextPage}" id="zh-load-more" class="zg-btn-white zg-r3px zu-button-more">更多</a></#if>
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ public class JedisKeyUtil {
     // 关注对象
     private static String BIZ_FOLLOWEE = "FOLLOWEE";
     private static String BIZ_TIMELINE = "TIMELINE";
+    private static String BIZ_MOTTO    ="MOTTO";
 
 
     public static String getLikeKey(int entityType, int entityId) {
@@ -42,6 +43,9 @@ public class JedisKeyUtil {
         return BIZ_TIMELINE + SPLIT + String.valueOf(userId);
     }
 
+    public static String getMotto(int userId){
+        return BIZ_MOTTO+SPLIT+String.valueOf(userId);
+    }
 
 
 }

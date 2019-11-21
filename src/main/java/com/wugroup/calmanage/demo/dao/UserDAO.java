@@ -35,7 +35,7 @@ public interface UserDAO {
 
     //修改头像
     @Update({"update ", TABEL_NAME, " set head_url=#{headUrl} where id=#{id}"})
-    void updateHeadUrl(int id);
+    void updateHeadUrl(int id,String headUrl);
 
 
 }

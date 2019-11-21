@@ -53,7 +53,7 @@ public class UserService {
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0,5));
         user.setPassword(DemoUtil.MD5(password+user.getSalt()));
-        user.setHeadUrl("../images/res/da8e974dc_m.jpg");
+        user.setHeadUrl("http://127.0.0.1:8080/images/res/da8e974dc_m.jpg");
         userDAO.addUser(user);
 
         String ticket = addLoginTicket(user.getId());
@@ -105,6 +105,10 @@ public class UserService {
         loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
         loginTicketDAO.addTicket(loginTicket);
         return loginTicket.getTicket();
+    }
+
+    public void updateHead(int id,String headUrl){
+        userDAO.updateHeadUrl(id,headUrl);
     }
 
     public User getUser(int id){

@@ -109,7 +109,10 @@ public class HomeController {
 
         model.addAttribute("vos",getTasks(userId,0+10*page,10+10*page));
         User user = userService.getUser(userId);
+        String motto = jedisAdapter.get(JedisKeyUtil.getMotto(userId));
+        motto = motto==null?"还没有签名": motto;
         ViewObject vo = new ViewObject();
+        vo.set("motto",motto);
         vo.set("nextPage",page+1);
         vo.set("user", user);
         vo.set("commentCount", commentService.getUserCommentCount(userId));

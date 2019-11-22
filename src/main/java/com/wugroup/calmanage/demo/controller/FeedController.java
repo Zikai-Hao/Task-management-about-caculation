@@ -35,6 +35,7 @@ public class FeedController {
 
     @Autowired
     JedisAdapter jedisAdapter;
+
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;

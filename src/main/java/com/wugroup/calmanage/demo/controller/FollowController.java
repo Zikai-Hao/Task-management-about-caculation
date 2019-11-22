@@ -1,6 +1,8 @@
 package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
+import com.wugroup.calmanage.demo.Util.JedisAdapter;
+import com.wugroup.calmanage.demo.Util.JedisKeyUtil;
 import com.wugroup.calmanage.demo.async.EventModel;
 import com.wugroup.calmanage.demo.async.EventProducer;
 import com.wugroup.calmanage.demo.async.EventType;
@@ -44,6 +46,9 @@ public class FollowController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    JedisAdapter jedisAdapter;
+
     /**
      * 关注用户并返回登陆者的关注数
      * @param userId
@@ -77,9 +82,10 @@ public class FollowController {
 
         boolean ret = followService.unFollow(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId);
 
+        /*
         eventProducer.fireEvent(new EventModel(EventType.UNFOLLOW)
                 .setActorId(hostHolder.getUser().getId()).setEntityId(userId)
-                .setEntityType(EntityType.ENTITY_USER).setEntityOwnerId(userId));
+                .setEntityType(EntityType.ENTITY_USER).setEntityOwnerId(userId));*/
 
         return DemoUtil.getJSONString(ret ? 0 : 1, String.valueOf(followService.getFolloweeCount(hostHolder.getUser().getId(), EntityType.ENTITY_USER)));
     }
@@ -181,6 +187,57 @@ public class FollowController {
         model.addAttribute("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
         model.addAttribute("curUser", userService.getUser(userId));
         return "followees";
+    }
+
+    @RequestMapping(path = {"/followQuestions"})
+    public String getFollowQuestions(Model model ,@RequestParam(value = "page", defaultValue = "0") int page){
+        if (hostHolder.getUser() == null) {
+            return "redirect:/reglogin";
+        }
+        List<Integer> tasksId = followService.getFollowees(hostHolder.getUser().getId(),EntityType.ENTITY_TASK,10*page,10);
+        List<Task> tasks = new ArrayList<>();
+        for(int taskId:tasksId){
+            tasks.add(taskService.getById(taskId));
+        }
+        User localUser = hostHolder.getUser();
+        List<ViewObject> vos = new ArrayList<>();
+        for(Task task:tasks){
+            ViewObject vo = new ViewObject();
+            if(localUser !=null){
+                vo.set("log",true);
+                vo.set("isFollow",followService.isFollower(localUser.getId(),EntityType.ENTITY_TASK,task.getId()));}
+            else{
+                vo.set("log",false);
+            }
+            vo.set("task",task);
+            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_TASK, task.getId()));
+
+            vo.set("user",userService.getUser(task.getUserId()));
+            vos.add(vo);
+        }
+        model.addAttribute("vos",vos);
+        User user = hostHolder.getUser();
+        int userId = user.getId();
+        String motto = jedisAdapter.get(JedisKeyUtil.getMotto(userId));
+        motto = motto==null?"还没有签名": motto;
+        ViewObject vo = new ViewObject();
+        vo.set("motto",motto);
+        vo.set("nextPage",page+1);
+        vo.set("user", user);
+        vo.set("commentCount", commentService.getUserCommentCount(userId));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER, userId));
+        vo.set("followeeCount", followService.getFolloweeCount(userId, EntityType.ENTITY_USER));
+        if (hostHolder.getUser() != null) {
+            vo.set("followed", followService.isFollower(hostHolder.getUser().getId(), EntityType.ENTITY_USER, userId));
+        } else {
+            vo.set("followed", false);
+        }
+
+        int taskCount = followService.getFollowees(hostHolder.getUser().getId(),EntityType.ENTITY_TASK,10*page,Integer.MAX_VALUE).size();
+        vo.set("lastPage",taskCount<=(10+10*page)?true:false);
+        model.addAttribute("profileUser", vo);
+
+        return "followeesQuestion";
     }
 
     /**

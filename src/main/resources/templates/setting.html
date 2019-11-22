@@ -1,0 +1,88 @@
+<#include "header.html">
+
+<link rel="stylesheet" href="../styles/index.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="stylesheet" href="../styles/setting.css">
+<div class="zg-wrap zu-main clearfix " role="main">
+    <div class="zm-profile-section-wrap zm-profile-followee-page">
+
+        <div class="zm-profile-section-head">
+                    <span class="zm-profile-section-name">
+                        <a href="#">${profileUser.user.name}</a> 关注了 ${profileUser.followerCount} 人
+                    </span>
+
+            <div class="zm-profile-section-list">
+                <div id="zh-profile-follows-list">
+                    <div class="zh-general-list clearfix">
+                        <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                            <div class="zg-right">
+                        </div>
+                        <a title="头像" class="zm-item-link-avatar" href="${profileUser.user.headUrl}">
+                            <img src="${profileUser.user.headUrl}" class="zm-item-img-avatar">
+                        </a>
+                        <div class="zm-list-content-medium">
+                            <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/user/${profileUser.user.id}" class="zg-link">${profileUser.user.name}</a></h2>
+
+                            <div class="zg-big-gray">${profileUser.motto}</div>
+                            <span class="zg-right zm-noti-cleaner-setting" style="list-style:none">
+                                    <a href="/setting" class="zg-link-gray-normal">
+                                    <i class="zg-icon zg-icon-settings"></i>设置
+                                    </a>
+                                    </span>
+                            <div class="details zg-gray">
+                                <a target="_blank" href="/user/${profileUser.user.id}/followers" class="zg-link-gray-normal">${profileUser.followerCount}粉丝</a>
+                                /
+                                <a target="_blank" href="/user/${profileUser.user.id}/followees" class="zg-link-gray-normal">${profileUser.followeeCount}关注</a>
+                                /
+                                <a target="_blank" href="#" class="zg-link-gray-normal">${profileUser.commentCount} 回答</a>
+                                /
+                                <a target="_blank" href="#" class="zg-link-gray-normal"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="zg-section" id="zh-home-list-title">
+            <i class="zg-icon zg-icon-settings"></i>设置
+        </div>
+        <div class="zu-main-feed-con navigable" data-feedtype="topstory" id="zh-question-list">
+            <div id="js-home-feed-list" class="zh-general-list topstory clearfix">
+            </div>
+        </div>
+
+        <br>
+            <div class="index-main-body">
+                <div class="desk-front sign-flow clearfix1 sign-flow-simple">
+                    <div class="view view-signin" data-za-module="SignInForm" style="display: block;">
+                        <form action="/set/" id="settingform" method="post">
+
+                            <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
+                            <div class="group-inputs">
+
+                                <div class="email input-wrapper">
+                                    <input type="text" name="motto" aria-label="修改你的签名" placeholder="修改你的签名" required="">
+                                </div>
+                            </div>
+                            <div class="button-wrapper command clearfix1">
+                                <button class="sign-button submit" type="submit" onclick="form=document.getElementById('settingform');form.action='/set/'">修改</button>
+                            </div>
+                        </form>
+                        <div  class="placeholder-text" >
+                            <#if msg??>
+                            ${msg}
+                            </#if>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+</div>
+
+<#include "js.html">
+<script type="text/javascript" src="/scripts/main/site/profile.js"></script>
+
+<#include "footer.html">

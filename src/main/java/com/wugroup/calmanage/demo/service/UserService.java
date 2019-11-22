@@ -1,6 +1,8 @@
 package com.wugroup.calmanage.demo.service;
 
 import com.wugroup.calmanage.demo.Util.DemoUtil;
+import com.wugroup.calmanage.demo.Util.JedisAdapter;
+import com.wugroup.calmanage.demo.Util.JedisKeyUtil;
 import com.wugroup.calmanage.demo.dao.LoginTicketDAO;
 import com.wugroup.calmanage.demo.dao.UserDAO;
 import com.wugroup.calmanage.demo.model.LoginTicket;
@@ -26,6 +28,14 @@ public class UserService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    JedisAdapter jedisAdapter;
+
+    public boolean updateMotto(String comment,int userId){
+        String key = JedisKeyUtil.getMotto(userId);
+        return jedisAdapter.set(key,comment);
+    }
 
 
     public User selectByName(String name){

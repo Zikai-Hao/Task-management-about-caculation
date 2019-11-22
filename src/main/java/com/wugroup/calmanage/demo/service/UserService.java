@@ -118,7 +118,7 @@ public class UserService {
     }
 
     public void updateHead(int id,String headUrl){
-        userDAO.updateHeadUrl(id,headUrl);
+        userDAO.updateHeadUrl(headUrl,id);
     }
 
     public User getUser(int id){

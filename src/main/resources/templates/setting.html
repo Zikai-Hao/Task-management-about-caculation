@@ -57,18 +57,34 @@
             <div class="index-main-body">
                 <div class="desk-front sign-flow clearfix1 sign-flow-simple">
                     <div class="view view-signin" data-za-module="SignInForm" style="display: block;">
+
                         <form action="/set/" id="settingform" method="post">
 
                             <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
                             <div class="group-inputs">
 
                                 <div class="email input-wrapper">
-                                    <input type="text" name="motto" aria-label="修改你的签名" placeholder="修改你的签名" required="">
+                                    <input type="text" name="motto" aria-label="修改你的签名" placeholder="修改你的签名" required="" style=" width: 822.4px; float: left; ">
+
+                                    <button class="sign-button submit" type="submit" onclick="form=document.getElementById('settingform');form.action='/set/'"style=" float: right; width: 100px; height: 47px; ">修改</button>
+
                                 </div>
                             </div>
-                            <div class="button-wrapper command clearfix1">
-                                <button class="sign-button submit" type="submit" onclick="form=document.getElementById('settingform');form.action='/set/'">修改</button>
+                        </form>
+                        <br>
+                        <form action="/setHead/" id="settingHeadform" method="post">
+
+                            <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
+                            <div class="group-inputs">
+
+                                <div class="email input-wrapper">
+                                    <input type="text" name="headUrl" aria-label="修改你的头像，请输入新头像地址" placeholder="修改你的头像，请输入新头像地址" required="" style=" width: 822.4px; float: left; ">
+
+                                    <button class="sign-button submit" type="submit" onclick="form=document.getElementById('settingHeadform');form.action='/setHead/'"style=" float: right; width: 100px; height: 47px; ">修改</button>
+
+                                </div>
                             </div>
+
                         </form>
                         <div  class="placeholder-text" >
                             <#if msg??>

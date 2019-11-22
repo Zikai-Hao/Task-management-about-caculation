@@ -69,7 +69,7 @@ public class SettingController {
     }
 
     /**
-     * 设置成功 待修改
+     * 设置
      * @return
      */
     @RequestMapping(path = {"/setting"}, method = {RequestMethod.GET})
@@ -82,13 +82,13 @@ public class SettingController {
         return "setting";
     }
     @RequestMapping(path={"/set/"},method = {RequestMethod.POST})
-    public String reg(Model model,
-
+    public String setMotto(Model model,
                       @RequestParam("motto") String motto,
                       HttpServletResponse response){
 
 
         try {
+
             if(hostHolder==null){
                 return "redirect:/reglogin";
             }
@@ -97,13 +97,36 @@ public class SettingController {
             if(userService.updateMotto(motto,hostHolder.getUser().getId())) model.addAttribute("msg","修改成功");
             else model.addAttribute("msg","修改失败，请重试或联系管理员");
             model.addAttribute("profileUser", getVo());
-            return "setting";
+            return "redirect:/setting";
 
 
         }catch(Exception e){
             logger.error("个人资料修改异常"+e.getMessage());
             model.addAttribute("msg","修改失败，请重试或联系管理员");
-            return "setting";
+            return "redirect:/setting";
+
+        }
+
+    }
+    @RequestMapping(path={"/setHead/"},method = {RequestMethod.POST})
+    public String setHead(Model model,
+                      @RequestParam("headUrl") String headUrl,
+                      HttpServletResponse response){
+        try {
+            if(hostHolder==null){
+                return "redirect:/reglogin";
+            }
+            logger.info("设置头像");
+            userService.updateHead(hostHolder.getUser().getId(),headUrl);
+            model.addAttribute("msg","修改成功");
+            model.addAttribute("profileUser", getVo());
+            return "redirect:/setting";
+
+
+        }catch(Exception e){
+            logger.error("个人资料修改异常"+e.getMessage());
+            model.addAttribute("msg","修改失败，请重试或联系管理员");
+            return "redirect:/setting";
 
         }
 

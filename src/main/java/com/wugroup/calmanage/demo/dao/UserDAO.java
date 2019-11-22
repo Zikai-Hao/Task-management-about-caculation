@@ -34,8 +34,8 @@ public interface UserDAO {
     void deleteById(int id);
 
     //修改头像
-    @Update({"update ", TABEL_NAME, " set head_url=#{headUrl} where id=#{id}"})
-    void updateHeadUrl(int id,String headUrl);
+    @Update({"update ", TABEL_NAME, " set head_url=#{0} where id=#{1}"})
+    void updateHeadUrl(String headUrl,int id);
 
 
 }

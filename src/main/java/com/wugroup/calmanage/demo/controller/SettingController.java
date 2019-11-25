@@ -116,7 +116,7 @@ public class SettingController {
             if(hostHolder==null){
                 return "redirect:/reglogin";
             }
-            logger.info("设置头像");
+            //logger.info("设置头像");
             userService.updateHead(hostHolder.getUser().getId(),headUrl);
             model.addAttribute("msg","修改成功");
             model.addAttribute("profileUser", getVo());

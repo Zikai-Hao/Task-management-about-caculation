@@ -41,37 +41,37 @@ public class SearchController {
 
     @RequestMapping(path = {"/search"})
     public String getFollowQuestions(Model model , @RequestParam(value = "page", defaultValue = "0") int page,
-                                     @RequestParam("keyword") String keyword){
+                                     @RequestParam("q") String keyword){
         try {
-            List<Task> tasks = searchService.searchQuestion(keyword,10*page,10,"<em>", "</em>");
+            ViewObject viewObject = searchService.searchQuestion(keyword,10*page,10,"<em>", "</em>");
+            List<Task> tasks=(List<Task>) viewObject.get("task");
             List<ViewObject> vos = new ArrayList<>();
             for(Task task:tasks){
                 ViewObject vo = new ViewObject();
                 Task theTask = taskService.getById(task.getId());
                 if (task.getTaskType() != null) {
-                    task.setTaskType(task.getTaskType());
+                    theTask.setTaskType(task.getTaskType());
                 }
                 if (task.getTaskName() != null) {
-                    task.setTaskName(task.getTaskName());
+                    theTask.setTaskName(task.getTaskName());
                 }
                 vo.set("task",theTask);
                 vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_TASK, task.getId()));
-                vo.set("user",userService.getUser(task.getUserId()));
+                vo.set("user",userService.getUser(theTask.getUserId()));
                 vos.add(vo);
             }
             model.addAttribute("vos",vos);
+            model.addAttribute("keyword", keyword);
             ViewObject vo = new ViewObject();
             vo.set("nextPage",page+1);
-
-            int taskCount = followService.getFollowees(hostHolder.getUser().getId(),EntityType.ENTITY_TASK,10*page,Integer.MAX_VALUE).size();
-            vo.set("lastPage",taskCount<=(10+10*page)?true:false);
+            vo.set("lastPage",viewObject.get("lastPage"));
             model.addAttribute("profileUser", vo);
 
-            return "followeesQuestion";
+            return "result";
         }catch (Exception e){
             logger.error("查询出错"+e.getMessage());
         }
-        return "followeesQuestion";
+        return "result";
     }
 
 }

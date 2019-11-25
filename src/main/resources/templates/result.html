@@ -1,0 +1,75 @@
+<#include "header.html">
+<link rel="stylesheet" href="../styles/result.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<div class="zg-wrap zu-main clearfix" role="main">
+    <div class="zu-main-content">
+        <div class="zu-main-content-inner">
+            <div class="zg-section" id="zh-home-list-title">
+                <i class="zg-icon zg-icon-feedlist"></i>查询结果
+
+            </div>
+            <div class="zu-main-feed-con navigable" data-feedtype="topstory" id="zh-question-list">
+                <div id="js-home-feed-list" class="zh-general-list topstory clearfix">
+
+                    <#list vos as vo>
+                    <div class="feed-item folding feed-item-hook feed-item-2
+                        " feed-item-a="" data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
+                        <meta itemprop="ZReactor" data-id="389034" data-meta="">
+                        <div class="feed-item-inner">
+                            <div class="avatar">
+                                <a title="${vo.user.name}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank" href="https://nowcoder.com/people/amuro1230">
+                                    <img src="${vo.user.headUrl}" class="zm-item-img-avatar"></a>
+                            </div>
+                            <div class="feed-main">
+                                <div class="feed-content" data-za-module="AnswerItem">
+                                    <meta itemprop="answer-id" content="389034">
+                                    <meta itemprop="answer-url-token" content="13174385">
+                                    <h2 class="feed-title">
+                                        <a class="question_link" target="_blank" href="/task/${vo.task.id}">${vo.task.taskName}</a></h2>
+                                    <div class="feed-question-detail-item">
+                                        <div class="question-description-plain zm-editable-content"></div>
+                                    </div>
+                                    <div class="expandable entry-body">
+                                        <div class="zm-item-answer-author-info">
+                                            <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/${vo.user.id}">${vo.user.name}</a>
+                                            ，${vo.task.createdDate?string('yyyy年MM月dd日 HH：mm：ss')}</div>
+                                        <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">
+                                                <span class="voters text">
+                                                    <a href="#" class="more text">
+                                                        <span class="js-voteCount"></span>&nbsp;人赞同</a></span>
+                                        </div>
+                                        <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="123114" data-action="/answer/content" data-author-name="李淼" data-entry-url="/question/19857995/answer/13174385">
+                                            <div class="zh-summary summary clearfix">${vo.task.taskType}</div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-meta">
+                                        <div class="zm-item-meta answer-actions clearfix js-contentActions">
+                                            <div class="zm-meta-panel">
+                                                <a data-follow="q:link" class="follow-link zg-follow meta-item" href="/task/${vo.task.id}" id="index2">
+                                                    ${vo.followCount}人关注</a>
+
+                                                <a href="/task/${vo.task.id}" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                                                    <i class="z-icon-comment"></i>${vo.task.commentCount} 条评论</a>
+
+
+                                                <button class="meta-item item-collapse js-collapse">
+                                                    <i class="z-icon-fold"></i>收起</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+            </div>
+
+            <#if (!profileUser.lastPage)>
+            <a href="/search?q=${keyword}&page=${profileUser.nextPage}" id="zh-load-more" class="zg-btn-white zg-r3px zu-button-more">更多</a></#if>
+    </div>
+</div>
+
+
+<#include "js.html">
+<#include "footer.html">

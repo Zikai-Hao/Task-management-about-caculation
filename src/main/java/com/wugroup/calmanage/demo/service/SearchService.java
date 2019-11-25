@@ -57,6 +57,7 @@ public class SearchService {
         }
         vo.set("task",taskList);
         if(response.getHighlighting().entrySet().size()<10) vo.set("lastpage",true);
+        else vo.set("lastPage",false);
         return vo;
     }
 

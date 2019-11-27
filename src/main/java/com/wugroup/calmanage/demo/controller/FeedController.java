@@ -55,6 +55,7 @@ public class FeedController {
     private String getPullFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
         List<Integer> followees = new ArrayList<>();
+        if(followees.size()==0) return "feeds";
         if (localUserId != 0) {
             // 关注的人
             followees = followService.getFollowees(localUserId, EntityType.ENTITY_USER, Integer.MAX_VALUE);

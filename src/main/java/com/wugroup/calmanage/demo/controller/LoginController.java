@@ -70,6 +70,7 @@ public class LoginController {
                 return "redirect:/";
             }else {
                 model.addAttribute("msg", map.get("msg"));
+                model.addAttribute("type", "reg");
                 return "login";
             }
 
@@ -113,6 +114,7 @@ public class LoginController {
                 return "redirect:/";}
             else {
                 model.addAttribute("msg", map.get("msg"));
+                model.addAttribute("type", "login");
                 return "login";
             }
 

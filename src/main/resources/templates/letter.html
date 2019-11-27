@@ -1,8 +1,18 @@
 <#include "header.html">
-<link rel="stylesheet" href="./styles/letter.css">
+<link rel="stylesheet" href="/styles/letter.css">
+<link rel="stylesheet" href="/styles/detail.css">
     <div id="main">
         <div class="zg-wrap zu-main clearfix ">
             <ul class="letter-list">
+                <#if (conversations?size==0)>
+                <div class="feed-item folding feed-item-hook feed-item-2
+                        " feed-item-a="" data-type="a" id="feed-3" data-za-module="FeedItem" data-za-index="">
+                    <meta itemprop="ZReactor" data-id="389034" data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;, &quot;voteups&quot;: 4168, &quot;comments&quot;: 69, &quot;source&quot;: []}">
+                    <div  class="placeholder-text" >
+                        你还没有收到任何私信
+                    </div>
+                </div>
+                <#else>
                 <#list conversations as conversation>
                 <li id="conversation-item-10001_622873">
                 <a class="letter-link" href="/msg/detail?conversationId=${conversation.conversation.conversationId}">
@@ -27,7 +37,7 @@
                 ${conversation.unread}
                 </span></#if>
                 <a class="list-head">
-                <img alt="头像" src="./images/res/da8e974dc_m.jpg">
+                <img alt="头像" src="/images/res/da8e974dc_m.jpg">
                 </a>
                 </div>
                 <div class="letter-detail">
@@ -41,7 +51,7 @@
                 </p>
                 </div>
                 </li>
-                </#list>
+                </#list></#if>
             </ul>
 
         </div>

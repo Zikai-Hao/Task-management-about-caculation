@@ -2284,7 +2284,6 @@ html.modal-open.no-flexbox .modal-wrapper .mutiview-dialog {
     line-height: 33px;
     color: #fff;
     text-align: center;
-    float: left;
     width: 145px;
     text-shadow: 0 1px 1px rgba(0,0,0,.2);
     background: #80c3f7;
@@ -2338,7 +2337,6 @@ html.modal-open.no-flexbox .modal-wrapper .mutiview-dialog {
     float: none;
     margin: auto;
     width: 300px;
-    text-align: left
 }
 
 .sign-flow .view .group-inputs {

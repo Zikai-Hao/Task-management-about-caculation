@@ -1,6 +1,5 @@
 package com.wugroup.calmanage.demo.Util;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.wugroup.calmanage.demo.Private.PrivateInf;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

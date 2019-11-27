@@ -1,6 +1,6 @@
 <#include "header.html">
-<link rel="stylesheet" href="../styles/result.css">
-<link rel="stylesheet" href="../styles/detail.css">
+<link rel="stylesheet" href="./styles/result.css">
+<link rel="stylesheet" href="./styles/detail.css">
 <div class="zg-wrap zu-main clearfix" role="main">
     <div class="zu-main-content">
         <div class="zu-main-content-inner">
@@ -10,6 +10,15 @@
             </div>
             <div class="zu-main-feed-con navigable" data-feedtype="topstory" id="zh-question-list">
                 <div id="js-home-feed-list" class="zh-general-list topstory clearfix">
+                    <#if (vos?size==0)>
+                    <div class="feed-item folding feed-item-hook feed-item-2
+                        " feed-item-a="" data-type="a" id="feed-3" data-za-module="FeedItem" data-za-index="">
+                        <meta itemprop="ZReactor" data-id="389034" data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;, &quot;voteups&quot;: 4168, &quot;comments&quot;: 69, &quot;source&quot;: []}">
+                        <div  class="placeholder-text" >
+                            没有更多结果啦
+                        </div>
+                    </div>
+                </#if>
 
                     <#list vos as vo>
                     <div class="feed-item folding feed-item-hook feed-item-2

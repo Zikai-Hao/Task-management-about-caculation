@@ -37,12 +37,16 @@ public class UserService {
         return jedisAdapter.set(key,comment);
     }
 
+    public boolean updateEmail(String emailAddr,int userId){
+        return jedisAdapter.set(JedisKeyUtil.getEmail(userId),emailAddr);
+    }
+
 
     public User selectByName(String name){
         return userDAO.selectByName(name);
     }
     //用户注册
-    public Map<String,String> register(String username,String password){
+    public Map<String,String> register(String username,String password,String emailAddr){
         Map<String,String> map = new HashMap<>();
         if(StringUtils.isBlank(username)){
             map.put("msg","用户名不能为空");
@@ -58,15 +62,20 @@ public class UserService {
             map.put("msg","用户名已经被注册");
             return map;
         }
+        if(!emailAddr.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")){
+            map.put("msg","邮箱格式不正确");
+            return map;
+        }
 
         user = new User();
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0,5));
         user.setPassword(DemoUtil.MD5(password+user.getSalt()));
-        user.setHeadUrl("http://127.0.0.1:8080/images/res/da8e974dc_m.jpg");
+        user.setHeadUrl("./images/res/da8e974dc_m.jpg");
         userDAO.addUser(user);
-
-        String ticket = addLoginTicket(user.getId());
+        int userId=userDAO.selectByName(username).getId();
+        jedisAdapter.set(JedisKeyUtil.getEmail(userId),emailAddr);
+        String ticket = addLoginTicket(userId);
         map.put("ticket", ticket);
         return map;
 

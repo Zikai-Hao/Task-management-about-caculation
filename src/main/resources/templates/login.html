@@ -9,14 +9,14 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>欢迎来到Group-问答材料人</title>
     <link rel="dns-prefetch" href="">
-    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="./styles/login.css">
 
 </head>
 <body class="zhi  no-auth">
 <div class="index-main">
     <div class="index-main-body">
         <div class="index-header">
-            <h1 class="logo hide-text"><img src="../images/res/nk.png" alt=""></h1>
+            <h1 class="logo hide-text"><img src="./images/res/nk.png" alt=""></h1>
             <h2 class="subtitle">
                 <#if msg??>
                 ${msg}
@@ -35,11 +35,19 @@
                         <div class="input-wrapper">
                             <input type="password" name="password" aria-label="密码" placeholder="密码" required="">
                         </div>
+                        <#if (type=="reg")>
+                        <div class="email input-wrapper">
+                            <input type="text" name="emailAddr" aria-label="邮箱（仅注册时填写）" placeholder="邮箱（仅注册时填写）" required="">
+                        </div>
+                        </#if>
                     </div>
                     <input type="hidden" name="next" value="${next?default('')}"/>
                     <div class="button-wrapper command clearfix">
-                        <button class="sign-button submit" type="submit" onclick="form=document.getElementById('regloginform');form.action='/login/'">登录</button>
+                        <#if (type=="login")>
+                        <button class="sign-button submit" type="submit" onclick="form=document.getElementById('regloginform');form.action='/login/'">登录</button></#if>
+                        <#if (type=="reg")>
                         <button class="sign-button submit" type="submit" onclick="form=document.getElementById('regloginform');form.action='/reg/'">注册</button>
+                        </#if>
                     </div>
                     <div class="signin-misc-wrapper clearfix">
                         <label class="remember-me">

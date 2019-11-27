@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Service
 public class SearchService {
-    private static final String SOLR_UPL="http://127.0.0.1:8983/solr/new_core";
+    private static final String SOLR_UPL="http://localhost:8983/solr/new_core";
     private HttpSolrClient client =new HttpSolrClient.Builder(SOLR_UPL).build();
     private static final String TASK_NAME = "task_name";
     private static final String TASP_TYPE = "task_type";
@@ -56,7 +56,7 @@ public class SearchService {
             taskList.add(q);
         }
         vo.set("task",taskList);
-        if(response.getHighlighting().entrySet().size()<10) vo.set("lastpage",true);
+        if(response.getHighlighting().entrySet().size()<10) vo.set("lastPage",true);
         else vo.set("lastPage",false);
         return vo;
     }

@@ -1,22 +1,21 @@
 package com.wugroup.calmanage.demo.controller;
 
-import com.sun.deploy.net.HttpResponse;
+
+import com.wugroup.calmanage.demo.Util.JedisAdapter;
+import com.wugroup.calmanage.demo.Util.JedisKeyUtil;
 import com.wugroup.calmanage.demo.async.EventModel;
 import com.wugroup.calmanage.demo.async.EventProducer;
 import com.wugroup.calmanage.demo.async.EventType;
-import com.wugroup.calmanage.demo.model.User;
+
 import com.wugroup.calmanage.demo.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +33,9 @@ public class LoginController {
     @Autowired
     EventProducer eventProducer;
 
+    @Autowired
+    JedisAdapter jedisAdapter;
+
     /**
      * 注册
      * @param model
@@ -47,18 +49,19 @@ public class LoginController {
     public String reg(Model model,
                       @RequestParam("username") String username,
                       @RequestParam("password") String password,
+                      @RequestParam("emailAddr") String emailAddr,
                       @RequestParam(value = "next",required = false) String next,
                       HttpServletResponse response){
 
 
         try {
-            Map<String,String> map = userService.register(username, password);
+            Map<String,String> map = userService.register(username, password,emailAddr);
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket",map.get("ticket"));
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 eventProducer.fireEvent(new EventModel(EventType.REGIS)
-                        .setExt("username", username).setExt("email", "1125037115@qq.com")
+                        .setExt("username", username).setExt("email", emailAddr)
                         .setActorId(2));
                 if(StringUtils.isNotBlank(next)){
                     return "redirect:"+next;
@@ -78,8 +81,10 @@ public class LoginController {
 
     }
     @RequestMapping(path={"/reglogin"},method = {RequestMethod.GET})
-    public String reg(Model model,@RequestParam(value = "next",required = false) String next){
+    public String reg(Model model, @RequestParam(value = "next",required = false) String next,
+                      @RequestParam("type") String type){
         model.addAttribute("next",next);
+        model.addAttribute("type",type);
         return "login";
     }
 

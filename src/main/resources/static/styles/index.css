@@ -15501,7 +15501,7 @@ html.no-touchevents .zm-noti7-content-item:hover .zg-follow,html.no-touchevents 
 }
 
 .zm-entry-head-avatar-edit-button {
-    background: url(./images/img/ed_white.48efe02e.gif) no-repeat 6px 8px #000;
+    background: url(/images/img/ed_white.48efe02e.gif) no-repeat 6px 8px #000;
     color: #fff;
     display: none;
     height: 25px;
@@ -15825,7 +15825,7 @@ html.no-touchevents .zm-item-vote-count:hover {
     vertical-align: middle;
     background-color: #25bb9b;
     background-repeat: no-repeat;
-    background-image: url(./images/img/sprites-1.9.2.4c54885a.png)
+    background-image: url(/images/img/sprites-1.9.2.4c54885a.png)
 }
 
 .tag-list .remove-button {
@@ -15907,7 +15907,7 @@ html.no-touchevents .zm-item-tag:hover,html.no-touchevents .zm-item-tag-x:hover 
     visibility: hidden;
     overflow: hidden;
     text-indent: -9000px;
-    background: url(./images/img/sprites-1.9.2.4c54885a.png) no-repeat -264px -141px;
+    background: url(/images/img/sprites-1.9.2.4c54885a.png) no-repeat -264px -141px;
     border-radius: 8px
 }
 
@@ -16008,7 +16008,7 @@ html.no-touchevents .video-box:hover .title .z-ico-extern-blue {
 .video-link {
     display: block;
     padding-left: 20px;
-    background-image: url(./images/img/video/video.ae2ebded.png);
+    background-image: url(/images/img/video/video.ae2ebded.png);
     background-repeat: no-repeat;
     background-position: 0 center
 }
@@ -16089,7 +16089,7 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
 }
 
 .carousel .carousel-left-btn:hover {
-    background-image: url(./images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
+    background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
     background-repeat: no-repeat;
     background-size: 108px 92px;
     background-position: -47px -1px;
@@ -16099,13 +16099,13 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
 
 @media screen and (-webkit-min-device-pixel-ratio:1),screen and (min--moz-device-pixel-ratio:1),screen and (min-device-pixel-ratio:1),screen and (min-resolution:1dppx) {
     .carousel .carousel-left-btn:hover {
-        background-image: url(./images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
     }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:2),screen and (min--moz-device-pixel-ratio:2),screen and (min-device-pixel-ratio:2),screen and (min-resolution:2dppx) {
     .carousel .carousel-left-btn:hover {
-        background-image: url(./images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
     }
 }
 
@@ -16115,7 +16115,7 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
 }
 
 .carousel .carousel-right-btn:hover {
-    background-image: url(./images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
+    background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
     background-repeat: no-repeat;
     background-size: 108px 92px;
     background-position: -47px -47px;
@@ -16125,13 +16125,13 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
 
 @media screen and (-webkit-min-device-pixel-ratio:1),screen and (min--moz-device-pixel-ratio:1),screen and (min-device-pixel-ratio:1),screen and (min-resolution:1dppx) {
     .carousel .carousel-right-btn:hover {
-        background-image: url(../images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
     }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:2),screen and (min--moz-device-pixel-ratio:2),screen and (min-device-pixel-ratio:2),screen and (min-resolution:2dppx) {
     .carousel .carousel-right-btn:hover {
-        background-image: url(../images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
     }
 }
 
@@ -16200,20 +16200,20 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
 }
 
 .copyright-ico-prev,.copyright-ico-prev-on,.copyright-ico-next,.copyright-ico-next-on,.copyright-ico-pointer,.copyright-ico-indicator {
-    background-image: url(../images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
+    background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png);
     background-repeat: no-repeat;
     background-size: 108px 92px
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:1),screen and (min--moz-device-pixel-ratio:1),screen and (min-device-pixel-ratio:1),screen and (min-resolution:1dppx) {
     .copyright-ico-prev,.copyright-ico-prev-on,.copyright-ico-next,.copyright-ico-next-on,.copyright-ico-pointer,.copyright-ico-indicator {
-        background-image: url(../images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons_8b39c44a17.52267dcf.png)
     }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:2),screen and (min--moz-device-pixel-ratio:2),screen and (min-device-pixel-ratio:2),screen and (min-resolution:2dppx) {
     .copyright-ico-prev,.copyright-ico-prev-on,.copyright-ico-next,.copyright-ico-next-on,.copyright-ico-pointer,.copyright-ico-indicator {
-        background-image: url(../images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
+        background-image: url(/images/img/copyright_demo_icons_compiled/copyright_demo_icons@2x_8b39c44a17.9ab11555.png)
     }
 }
 

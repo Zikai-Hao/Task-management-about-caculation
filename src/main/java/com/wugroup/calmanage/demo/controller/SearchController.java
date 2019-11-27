@@ -43,6 +43,7 @@ public class SearchController {
     public String getFollowQuestions(Model model , @RequestParam(value = "page", defaultValue = "0") int page,
                                      @RequestParam("q") String keyword){
         try {
+            if(keyword=="") return "result";
             ViewObject viewObject = searchService.searchQuestion(keyword,10*page,10,"<em>", "</em>");
             List<Task> tasks=(List<Task>) viewObject.get("task");
             List<ViewObject> vos = new ArrayList<>();

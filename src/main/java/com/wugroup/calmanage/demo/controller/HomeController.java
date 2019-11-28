@@ -2,6 +2,7 @@ package com.wugroup.calmanage.demo.controller;
 
 import com.wugroup.calmanage.demo.Util.JedisAdapter;
 import com.wugroup.calmanage.demo.Util.JedisKeyUtil;
+import com.wugroup.calmanage.demo.Util.UrlUtil;
 import com.wugroup.calmanage.demo.model.*;
 import com.wugroup.calmanage.demo.service.CommentService;
 import com.wugroup.calmanage.demo.service.FollowService;
@@ -67,6 +68,7 @@ public class HomeController {
             else{
                 vo.set("log",false);
             }
+            task.setTaskType(UrlUtil.isUrl(task.getTaskType()));
             vo.set("task",task);
             vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_TASK, task.getId()));
 

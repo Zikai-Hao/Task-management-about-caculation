@@ -1,5 +1,6 @@
 package com.wugroup.calmanage.demo.service;
 
+import com.wugroup.calmanage.demo.Util.UrlUtil;
 import com.wugroup.calmanage.demo.dao.TaskDAO;
 import com.wugroup.calmanage.demo.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,9 @@ public class TaskService {
     }
 
     public Task getById(int id){
-        return taskDAO.selectById(id);
+        Task task = taskDAO.selectById(id);
+        task.setTaskType(UrlUtil.isUrl(task.getTaskType()));
+        return task;
     }
 
 }

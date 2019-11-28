@@ -73,7 +73,7 @@ public class SettingController {
     @RequestMapping(path = {"/setting"}, method = {RequestMethod.GET})
     public String user(Model model){
         if(hostHolder==null){
-            return "redirect:/reglogin";
+            return "redirect:/reglogin?type=login";
         }
 
         model.addAttribute("profileUser", getVo());
@@ -88,7 +88,7 @@ public class SettingController {
         try {
 
             if(hostHolder==null){
-                return "redirect:/reglogin";
+                return "redirect:/reglogin?type=login";
             }
 
 
@@ -112,7 +112,7 @@ public class SettingController {
                       HttpServletResponse response){
         try {
             if(hostHolder==null){
-                return "redirect:/reglogin";
+                return "redirect:/reglogin?type=login";
             }
             //logger.info("设置头像");
             userService.updateHead(hostHolder.getUser().getId(),headUrl);

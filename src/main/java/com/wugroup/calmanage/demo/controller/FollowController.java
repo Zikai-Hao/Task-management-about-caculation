@@ -192,7 +192,7 @@ public class FollowController {
     @RequestMapping(path = {"/followQuestions"})
     public String getFollowQuestions(Model model ,@RequestParam(value = "page", defaultValue = "0") int page){
         if (hostHolder.getUser() == null) {
-            return "redirect:/reglogin";
+            return "redirect:/reglogin?type=login";
         }
         List<Integer> tasksId = followService.getFollowees(hostHolder.getUser().getId(),EntityType.ENTITY_TASK,10*page,10);
         List<Task> tasks = new ArrayList<>();

@@ -15,8 +15,8 @@ public class UrlUtil {
         StringBuffer result = new StringBuffer();
         while (matcher.find()) {
             String urlStr=matcher.group();
-            for(int i=0;i<contents.length()-1;i++){
-                if(contents.charAt(i)=='-'&&contents.charAt(i+1)=='-') {
+            for(int i=0;i<urlStr.length()-1;i++){
+                if(contents.charAt(i)=='-'&&urlStr.charAt(i+1)=='-') {
                     urlStr=urlStr.substring(0,i);
                     break;
                 }
